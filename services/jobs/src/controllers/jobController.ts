@@ -44,11 +44,17 @@ export const applyForJob = async (req: Request, res: Response): Promise<void> =>
   try {
     const jobId = req.params.jobId
     const { workerId } = req.body
-    const result = jobService.applyForJob(jobId, workerId)
-    if (result.success) {
-      res.json({ message: "Worker has applied for the job" })
+    const workerExists = await fetch(`http://localhost:8081/api/workers/${workerId}`)
+    if (!workerExists.ok) {
+      res.status(404).json({ error: "Worker not found" })
+      return
     } else {
-      res.status(404).json({ error: result.error })
+      const result = jobService.applyForJob(jobId, workerId)
+      if (result.success) {
+        res.json({ message: "Worker has applied for the job" })
+      } else {
+        res.status(404).json({ error: result.error })
+      }
     }
   } catch (error) {
     res.status(500).json({ error: "Internal server error" })

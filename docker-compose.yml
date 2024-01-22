@@ -1,10 +1,20 @@
 version: "3.8"
 
 services:
-  web:
-    image: activatestaff:latest
+  workers:
+    image: activatestaff-workers:latest
     build:
-      context: .
+      context: ./services/workers
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      NODE_ENV: development
+      
+  jobs:
+    image: activatestaff-jobs:latest
+    build:
+      context: ./services/jobs
       dockerfile: Dockerfile
     ports:
       - "8080:8080"

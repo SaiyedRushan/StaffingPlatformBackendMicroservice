@@ -8,17 +8,17 @@ describe("workerService", () => {
   ;(uuidv4 as jest.Mock).mockReturnValue("mocked-uuid")
 
   it("should create a new job and add it to the jobs array", () => {
-    const title = "Senior Software Engineer"
-    const description = "Job description"
-    const salaryRange = "$90,000 - $110,000"
+    const name = "Rushanshah Saiyed"
+    const email = "rushan@gmail.com"
+    const phoneNumber = "1234567890"
 
-    const newJob = createJob({ title, description, salaryRange })
+    const newWorker = createWorker({ name, email, phoneNumber })
 
-    expect(newJob).toEqual(expect.any(Job))
+    expect(newWorker).toEqual(expect.any(Worker))
     expect(uuidv4).toHaveBeenCalled()
-    expect(newJob.id).toBe("mocked-uuid")
-    expect(newJob.title).toBe(title)
-    expect(newJob.description).toBe(description)
-    expect(newJob.salaryRange).toBe(salaryRange)
+    expect(newWorker.id).toBe("mocked-uuid")
+    expect(newWorker.name).toBe(name)
+    expect(newWorker.email).toBe(email)
+    expect(newWorker.phoneNumber).toBe(phoneNumber)
   })
 })

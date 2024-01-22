@@ -1,13 +1,11 @@
-import Worker from "../../../workers/src/models/workerModel"
-
 // when using mongodb, we would be creating a schema here instead
 class Job {
   id: string
   title: string
   description: string
   salaryRange: string
-  applicants: Worker[] // we could also just store the workerIds here and do a join if it was a relation db
-  hiredWorker: Worker | null // we could also just store the workerId here
+  applicants: string[]
+  hiredWorkerId: string | null
   isHired: boolean = false
 
   constructor(id: string, title: string, description: string, salaryRange: string) {
@@ -16,12 +14,12 @@ class Job {
     this.description = description
     this.salaryRange = salaryRange
     this.applicants = []
-    this.hiredWorker = null
+    this.hiredWorkerId = null
     this.isHired = false
   }
 
-  hireWorker(worker: Worker): void {
-    this.hiredWorker = worker
+  hireWorker(workerId: string): void {
+    this.hiredWorkerId = workerId
     this.isHired = true
   }
 }

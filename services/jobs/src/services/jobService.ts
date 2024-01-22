@@ -1,6 +1,5 @@
 import Job from "../models/jobModel"
 import { v4 as uuidv4 } from "uuid"
-import { checkWorkerExists } from "../../../workers/src/services/workerService" // in real world, we'd communicate with the workers service via an API call or similar
 
 // temp storage for jobs, would use a database in real life
 const jobs: Job[] = []
@@ -36,14 +35,8 @@ export const applyForJob = (jobId: string, workerId: string): { success: boolean
   if (!job) {
     return { success: false, error: "Job not found" }
   }
-
-  const worker = checkWorkerExists(workerId)
-  if (worker) {
-    job.applicants.push(worker)
-    return { success: true }
-  } else {
-    return { success: false, error: "Worker not found" }
-  }
+  job.applicants.push(workerId)
+  return { success: true }
 }
 
 export const hireWorkerForJob = (jobId: string, workerId: string): { success: boolean; error?: string } => {
@@ -51,11 +44,10 @@ export const hireWorkerForJob = (jobId: string, workerId: string): { success: bo
   if (!job) {
     return { success: false, error: "Job not found" }
   }
-  const worker = job.applicants.find((applicant) => applicant.id === workerId)
-  if (!worker) {
+  const foundWorkerId = job.applicants.find((id) => id === workerId)
+  if (!foundWorkerId) {
     return { success: false, error: "Worker not found among applicants" }
   }
-  job.hireWorker(worker)
-  job.applicants = job.applicants.filter((applicant) => applicant.id !== workerId)
+  job.hireWorker(foundWorkerId)
   return { success: true }
 }

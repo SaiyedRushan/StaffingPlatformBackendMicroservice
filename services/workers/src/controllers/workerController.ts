@@ -39,3 +39,17 @@ export const deleteWorker = (req: Request, res: Response): void => {
     res.status(500).json({ error: "Internal server error" })
   }
 }
+
+export const checkWorkerExists = (req: Request, res: Response): void => {
+  try {
+    const workerId = req.params.workerId
+    const worker = workerService.checkWorkerExists(workerId)
+    if (worker) {
+      res.json(worker)
+    } else {
+      res.status(404).json({ error: "Worker not found" })
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" })
+  }
+}
