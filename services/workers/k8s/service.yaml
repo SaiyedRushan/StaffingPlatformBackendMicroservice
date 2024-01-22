@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: workers-service
+spec:
+  selector:
+    app: workers
+  ports:
+    - protocol: TCP
+      port: 81
+      targetPort: 8081
+  type: ClusterIP
