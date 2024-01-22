@@ -2,7 +2,7 @@ import express, { Response } from "express"
 import bodyParser from "body-parser"
 import { configDotenv } from "dotenv"
 import loggerMiddleware from "./middleware/loggerMiddleware"
-import routes from "./routes/routes"
+import jobRoutes from "./routes/jobRoutes"
 configDotenv()
 
 const app = express()
@@ -13,10 +13,10 @@ app.use(bodyParser.json())
 app.use(loggerMiddleware)
 
 app.get("/", (_, res: Response) => {
-  res.send("Welcome, to use the api, please go to /api")
+  res.send("Welcome, to use the jobs api, please go to /api/jobs")
 })
 
-app.use("/api", routes)
+app.use("/api/jobs", jobRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`)

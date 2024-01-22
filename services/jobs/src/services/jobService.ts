@@ -1,6 +1,6 @@
 import Job from "../models/jobModel"
 import { v4 as uuidv4 } from "uuid"
-import { checkWorkerExists } from "./workerService"
+import { checkWorkerExists } from "../../../workers/src/services/workerService" // in real world, we'd communicate with the workers service via an API call or similar
 
 // temp storage for jobs, would use a database in real life
 const jobs: Job[] = []

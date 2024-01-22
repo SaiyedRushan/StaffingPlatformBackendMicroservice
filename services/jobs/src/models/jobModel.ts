@@ -1,4 +1,4 @@
-import Worker from "./workerModel"
+import Worker from "../../../workers/src/models/workerModel"
 
 // when using mongodb, we would be creating a schema here instead
 class Job {

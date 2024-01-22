@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "NodeNext",
+    "outDir": "dist",
+    "rootDir": "./",
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true
+  },
+  "include": ["/**/*"],
+  "exclude": ["node_modules"]
+}
