@@ -1,6 +1,12 @@
 version: "3.8"
 
 services:
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+      
   workers:
     image: activatestaff-workers:latest
     build:
@@ -10,7 +16,7 @@ services:
       - "8081:8081"
     environment:
       NODE_ENV: development
-      
+
   jobs:
     image: activatestaff-jobs:latest
     build:
